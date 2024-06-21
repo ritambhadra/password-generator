@@ -33,33 +33,35 @@ function App() {
 	}, [length, numAllowed, charAllowed, passwordGenerator]);
 
 	return (
-		<div className="w-full max-w-lg mx-auto shadow-md rounded-xl px-4 py-4 my-20 bg-gray-800">
+		<div className="w-full max-w-md mx-auto shadow-md rounded-xl px-4 py-4 my-20 bg-gray-800">
 			<h1 className="text-orange-400 text-center my-4 text-3xl">
 				Password Generator
 			</h1>
-			<div className="flex shadow overflow-hidden mb-4 gap-x-4">
+			<div className=" shadow overflow-hidden mb-5 gap-y-5">
 				<input
 					type="text"
 					value={password}
 					placeholder="Password"
-					className="outline-none w-full py-1 px-3 text-xl rounded-lg"
+					className="outline-none w-full py-3 px-3 text-xl rounded-lg text-center"
 					readOnly
 				/>
+			</div>
+			<div className="w-full flex justify-center max-w-md mx-auto px-2 py-3 ">
 				<button
 					onClick={copyPasswordToClipboard}
-					className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+					className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg mr-2.5 px-5 py-3  text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 				>
 					copy
 				</button>
 
 				<button
 					onClick={passwordGenerator}
-					className="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+					className=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-lg ml-2.5 px-5 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
 				>
 					refresh
 				</button>
 			</div>
-			<div className="flex text-lg gap-x-2 text-orange-400">
+			<div className="flex text-lg gap-x-4 text-orange-400">
 				<div className="flex items-center gap-x-1">
 					<input
 						type="range"
@@ -73,27 +75,29 @@ function App() {
 					/>
 					<label>Length: {length}</label>
 				</div>
-				<div className="flex items-center gap-x-1">
-					<input
-						type="checkbox"
-						defaultChecked={numAllowed}
-						id="numberInput"
-						onChange={() => {
-							setNumAllowed((prev) => !prev);
-						}}
-					/>
-					<label htmlFor="numberInput">Numbers</label>
-				</div>
-				<div className="flex items-center gap-x-1">
-					<input
-						type="checkbox"
-						defaultChecked={charAllowed}
-						id="characterInput"
-						onChange={() => {
-							setCharAllowed((prev) => !prev);
-						}}
-					/>
-					<label htmlFor="characterInput">Characters</label>
+				<div className="flex flex-col">
+					<div className="flex items-center gap-x-1">
+						<input
+							type="checkbox"
+							defaultChecked={numAllowed}
+							id="numberInput"
+							onChange={() => {
+								setNumAllowed((prev) => !prev);
+							}}
+						/>
+						<label htmlFor="numberInput">Numbers</label>
+					</div>
+					<div className="flex items-center gap-x-1">
+						<input
+							type="checkbox"
+							defaultChecked={charAllowed}
+							id="characterInput"
+							onChange={() => {
+								setCharAllowed((prev) => !prev);
+							}}
+						/>
+						<label htmlFor="characterInput">Characters</label>
+					</div>
 				</div>
 			</div>
 		</div>
