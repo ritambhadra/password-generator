@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from "react";
+import Toast from "./components/toast/Toast";
 
 function App() {
 	const [length, setLength] = useState(6);
@@ -8,6 +9,7 @@ function App() {
 
 	//useRef hook
 	const passwordRef = useRef(null);
+	const toastRef = useRef();
 
 	const passwordGenerator = useCallback(() => {
 		let pass = "";
@@ -20,12 +22,25 @@ function App() {
 			pass += str.charAt(char);
 		}
 		setPassword(pass);
+		if (toastRef.current) {
+			toastRef.current.addToast(
+				"password generated successfully!",
+				"generated"
+			)();
+		}
 	}, [length, numAllowed, charAllowed, setPassword]);
 
 	const copyPasswordToClipboard = useCallback(() => {
 		passwordRef.current?.select();
 		passwordRef.current?.setSelectionRange(0, 999);
 		window.navigator.clipboard.writeText(password);
+
+		if (toastRef.current) {
+			toastRef.current.addToast(
+				"password copied successfully!",
+				"success"
+			)();
+		}
 	}, [password]);
 
 	useEffect(() => {
@@ -33,7 +48,7 @@ function App() {
 	}, [length, numAllowed, charAllowed, passwordGenerator]);
 
 	return (
-		<div className="w-full max-w-md mx-auto shadow-md rounded-xl px-4 py-4 my-20 bg-gray-800">
+		<div className="max-w-min max-w-md mx-auto shadow-md rounded-xl px-4 py-4 my-20 bg-gray-800">
 			<h1 className="text-orange-400 text-center my-4 text-3xl">
 				Password Generator
 			</h1>
@@ -44,6 +59,7 @@ function App() {
 					placeholder="Password"
 					className="outline-none w-full py-3 px-3 text-xl rounded-lg text-center"
 					readOnly
+					ref={passwordRef}
 				/>
 			</div>
 			<div className="w-full flex justify-center max-w-md mx-auto px-2 py-3 ">
@@ -100,6 +116,7 @@ function App() {
 					</div>
 				</div>
 			</div>
+			<Toast ref={toastRef} />
 		</div>
 	);
 }
